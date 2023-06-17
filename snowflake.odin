@@ -38,6 +38,8 @@ generate :: proc(machine_id: i64 = 1) -> ID {
 // Returns an efficient base32 representation of the ID.
 base32 :: proc(id: ID, allocator := context.allocator) -> (str: []byte) {
 	str = make([]byte, 13, allocator)
+	defer delete(str)
+	
 	f := id
 	if f < 32 {
 		str[0] = ENC_TABLE[f]
